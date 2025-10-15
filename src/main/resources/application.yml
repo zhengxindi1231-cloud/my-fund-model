@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: fund-advice-service
+  datasource:
+    url: jdbc:h2:mem:funds;MODE=MySQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+  security:
+    user:
+      name: admin
+      password: admin123
+  ai:
+    openai:
+      api-key: ${SPRING_AI_OPENAI_API_KEY:TODO_FILL_GPT5_API_KEY}
+      base-url: ${SPRING_AI_OPENAI_BASE_URL:https://api.your-gpt5-proxy.example.com}
+      chat:
+        options:
+          model: ${SPRING_AI_OPENAI_CHAT_MODEL:gpt-5-think}
+          temperature: 0.2
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+logging:
+  level:
+    root: INFO
+    com.myfund.advice: DEBUG
+
+# Spring AI 配置通过环境变量覆盖，TODO 处待填写实际同花顺/模型网关参数
